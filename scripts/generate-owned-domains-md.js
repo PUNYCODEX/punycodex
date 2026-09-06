@@ -2,7 +2,7 @@
  * PUNICODEX — Generate OWNED_DOMAINS.md from canonical sources.
  *
  * Sources of truth:
- *   - platform/db/owned-domains.json  (the raw owned list)
+ *   - platform/db/owned-domains.json  (temple-domain inventory)
  *   - js/archetypes-v2.js             (flagship archetypes + tier info)
  *   - type/js/lexicon.js              (all entries, pantheons)
  *   - middleware.js                   (DOMAIN_MAP — current routing)
@@ -22,6 +22,10 @@ const ARCHETYPES_PATH = path.join(ROOT, 'js', 'archetypes-v2.js');
 const LEXICON_PATH = path.join(ROOT, 'type', 'js', 'lexicon.js');
 const MIDDLEWARE_PATH = path.join(ROOT, 'middleware.js');
 const OUTPUT_PATH = path.join(ROOT, 'OWNED_DOMAINS.md');
+
+// Platform / non-temple domains that we own but do not route through
+// middleware.js DOMAIN_MAP. Keep this in sync with reality.
+const PLATFORM_DOMAINS = new Set(['punicodex.com']);
 
 function puny(d) {
   try {
@@ -106,13 +110,26 @@ function ensureSite(id) {
 }
 
 const unmapped = [];
+const platform = []; // non-/sites/ routing
 const seenDomains = new Set();
+
+// Always include known platform domains, even if they are not stored in the
+// temple-domain inventory.
+for (const d of PLATFORM_DOMAINS) {
+  platform.push({ domain: d, purpose: 'Canonical platform domain — resolves to itself (punicodex.com)' });
+}
 
 for (const raw of ownedDomainsRaw) {
   const d = normalizeDomain(raw);
   if (!d) continue;
   if (seenDomains.has(d)) continue;
   seenDomains.add(d);
+
+  // Platform domains (not routed to a temple).
+  if (PLATFORM_DOMAINS.has(d)) {
+    platform.push({ domain: raw, purpose: 'Main platform' });
+    continue;
+  }
 
   // Prefer direct lookup in DOMAIN_MAP; fallback to punycode form.
   let target = domainMap[d] || domainMap[puny(d)] || domainMap['www.' + d] || domainMap['www.' + puny(d)];
@@ -142,17 +159,32 @@ for (const raw of ownedDomainsRaw) {
   site.domains.add(raw); // keep original casing for display
 }
 
-// ─── Group by tier ──────────────────────────────────────────────────────────
+// ─── Group by tier and compute variants ─────────────────────────────────────
 const dual = [];
 const tier1 = [];
 const tier2 = [];
 const base = []; // owned domains for non-flagship (base) temples
-const platform = []; // non-/sites/ routing, if any
 
 for (const site of sites.values()) {
   const tier = classifyTier(site.archetype, site.entry);
   const isFlagship = Boolean(site.archetype);
   const sortedDomains = Array.from(site.domains).sort((a, b) => a.localeCompare(b, 'en'));
+
+  // Determine the primary owned domain for this site, if any.
+  let primaryDomain = null;
+  if (site.archetype?.domainUnicode) {
+    const primaryNorm = normalizeDomain(site.archetype.domainUnicode);
+    if (site.domains.has(primaryNorm)) {
+      primaryDomain = primaryNorm;
+    }
+  }
+  // If the archetype's canonical domain is not owned, treat the first
+  // alphabetical owned domain as the primary for this report.
+  if (!primaryDomain) {
+    primaryDomain = normalizeDomain(sortedDomains[0]);
+  }
+
+  const variants = sortedDomains.filter((d) => normalizeDomain(d) !== primaryDomain);
 
   const record = {
     id: site.id,
@@ -160,6 +192,8 @@ for (const site of sites.values()) {
     pantheon: pantheonName(site.archetype, site.entry),
     rentalTier: site.archetype?.rentalTier || null,
     domains: sortedDomains,
+    primaryDomain,
+    variants,
     isFlagship,
     tier,
   };
@@ -177,7 +211,6 @@ for (const site of sites.values()) {
 
 const sortRecords = (records) =>
   records.sort((a, b) => {
-    // Greek/Olympian first, then alphabetical by display name
     const pa = a.pantheon.toLowerCase();
     const pb = b.pantheon.toLowerCase();
     if (pa !== pb) return pa.localeCompare(pb, 'en');
@@ -190,7 +223,7 @@ sortRecords(tier2);
 sortRecords(base);
 
 // ─── Helpers for markdown tables ────────────────────────────────────────────
-function renderMultiDomainTable(records, showTierDetail = false) {
+function renderMultiDomainTable(records) {
   const lines = [
     '| Archetype | Display Name | Domains (owned redirects) | Pantheon | Rental Tier |',
     '|-----------|--------------|---------------------------|----------|-------------|',
@@ -220,9 +253,12 @@ function renderSimpleDomainTable(records) {
 }
 
 // ─── Compose markdown ───────────────────────────────────────────────────────
-const totalUniqueOwned = seenDomains.size;
+const totalUniqueOwned = seenDomains.size + platform.length;
+const totalTempleDomains = seenDomains.size;
 const totalFlagshipDomains = dual.length + tier1.length + tier2.length;
 const totalBaseDomains = base.length;
+const allVariantRecords = [...dual, ...tier1, ...tier2, ...base].filter((r) => r.variants.length > 0);
+const totalVariantDomains = allVariantRecords.reduce((sum, r) => sum + r.variants.length, 0);
 
 const sections = [];
 
@@ -238,6 +274,10 @@ sections.push('');
 sections.push('## Overview');
 sections.push('');
 sections.push(`- **Total unique owned domains:** ${totalUniqueOwned}`);
+sections.push(`  - **Temple domains:** ${totalTempleDomains}`);
+sections.push(`    - **Primary (canonical) domains:** ${totalTempleDomains - totalVariantDomains}`);
+sections.push(`    - **Variant / alternate domains:** ${totalVariantDomains}`);
+sections.push(`  - **Platform domains:** ${platform.length}`);
 sections.push(`- **Flagship temples covered:** ${totalFlagshipDomains}`);
 sections.push(`  - Dual-tier: ${dual.length}`);
 sections.push(`  - Single-tier Tier-1: ${tier1.length}`);
@@ -299,11 +339,33 @@ if (base.length > 0) {
   sections.push('');
 }
 
+if (allVariantRecords.length > 0) {
+  sections.push('## Domain Variants');
+  sections.push('');
+  sections.push('These are the extra owned domains beyond the primary canonical domain for each temple. They usually capture alternate transliterations, macron-only fallbacks, or additional mark densities.');
+  sections.push('');
+  sections.push('| Archetype | Primary Domain | Variant Domains |');
+  sections.push('|-----------|----------------|-----------------|');
+  for (const r of allVariantRecords) {
+    const variantList = r.variants.map((d) => `\`${d}\``).join('<br>');
+    sections.push(
+      `| ${escapeMdCell(r.id)} | \`${escapeMdCell(r.primaryDomain)}\` | ${variantList} |`
+    );
+  }
+  sections.push('');
+}
+
 sections.push('## Platform Domains');
 sections.push('');
-sections.push(`| Domain | Purpose |`);
-sections.push(`|--------|---------|`);
-sections.push(`| \`punicodex.com\` | Main platform |`);
+if (platform.length > 0) {
+  sections.push(`| Domain | Purpose |`);
+  sections.push(`|--------|---------|`);
+  for (const p of platform) {
+    sections.push(`| \`${escapeMdCell(p.domain)}\` | ${escapeMdCell(p.purpose)} |`);
+  }
+} else {
+  sections.push('*No platform-only domains recorded.*');
+}
 sections.push('');
 
 sections.push('---');
@@ -319,7 +381,11 @@ const markdown = sections.join('\n');
 fs.writeFileSync(OUTPUT_PATH, markdown, 'utf8');
 
 console.log(`✓ Generated ${OUTPUT_PATH}`);
-console.log(`  Unique owned domains: ${totalUniqueOwned}`);
+console.log(`  Total owned domains:  ${totalUniqueOwned}`);
+console.log(`    Temple domains:     ${totalTempleDomains}`);
+console.log(`      Primary:          ${totalTempleDomains - totalVariantDomains}`);
+console.log(`      Variants:         ${totalVariantDomains}`);
+console.log(`    Platform domains:   ${platform.length}`);
 console.log(`  Flagship temples:     ${totalFlagshipDomains}`);
 console.log(`    Dual-tier:          ${dual.length}`);
 console.log(`    Tier-1:             ${tier1.length}`);

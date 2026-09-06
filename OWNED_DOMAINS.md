@@ -8,7 +8,11 @@
 
 ## Overview
 
-- **Total unique owned domains:** 357
+- **Total unique owned domains:** 358
+  - **Temple domains:** 357
+    - **Primary (canonical) domains:** 331
+    - **Variant / alternate domains:** 26
+  - **Platform domains:** 1
 - **Flagship temples covered:** 330
   - Dual-tier: 3
   - Single-tier Tier-1: 295
@@ -375,11 +379,40 @@ Owned domains that route to generated base temples (not full flagships).
 |--------|-------------------|------|----------|
 | `sꜥ.com` | Sꜥ | /sites/sa/ | egyptian |
 
+## Domain Variants
+
+These are the extra owned domains beyond the primary canonical domain for each temple. They usually capture alternate transliterations, macron-only fallbacks, or additional mark densities.
+
+| Archetype | Primary Domain | Variant Domains |
+|-----------|----------------|-----------------|
+| hekate | `hekátē.com` | `hekatē.com` |
+| apollon | `apóllōn.com` | `apollōn.com` |
+| nike | `níkē.com` | `nikē.com`<br>`níkê.com`<br>`νίκη.com` |
+| hp | `ḥꜥpy.com` | `ḥp.com` |
+| ra | `rꜥ.com` | `rá.com` |
+| sia | `sjꜣ.com` | `sꜣ.com` |
+| apep | `ꜥꜣpp.com` | `ꜥpp.com` |
+| eos | `ēōs.com` | `eōs.com` |
+| europe | `eurṓpē.com` | `eurōpē.com` |
+| iris | `îris.com` | `íris.com` |
+| pandora | `pandōra.com` | `pandṓra.com` |
+| ea | `ēa.com` | `𒀭𒂍.com` |
+| tezcatlipoca | `tēzcatlīpōca.com` | `tezcatlipōca.com`<br>`tēzcatlīpohca.com` |
+| aphrodite | `aphrodítē.com` | `aphrodītē.com` |
+| athena | `athēnâ.com` | `athénā.com`<br>`athēnā.com` |
+| hermes | `hermēs.com` | `hermês.com` |
+| poseidon | `poseidōn.com` | `poseidôn.com` |
+| dagan | `dāgān.com` | `dāgan.com` |
+| mot | `mūt.com` | `mōt.com` |
+| om | `oṃ.com` | `oṁ.com` |
+| yinyang | `yīnyáng.com` | `yīn-yáng.com` |
+| prometheus | `promētheús.com` | `promētheus.com` |
+
 ## Platform Domains
 
 | Domain | Purpose |
 |--------|---------|
-| `punicodex.com` | Main platform |
+| `punicodex.com` | Canonical platform domain — resolves to itself (punicodex.com) |
 
 ---
 
