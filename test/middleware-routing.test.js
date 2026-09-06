@@ -85,6 +85,19 @@ async function run() {
     assert.ok(res.headers.get('Location').includes('/acheron'));
   });
 
+  await test('http deity domain 301s to the https clean punicodex path', async () => {
+    const res = await middleware(req('http://achérōn.com/'));
+    assert.strictEqual(res.status, 301);
+    const loc = res.headers.get('Location');
+    assert.strictEqual(loc, 'https://punicodex.com/acheron/');
+  });
+
+  await test('http punicodex path 301s to https', async () => {
+    const res = await middleware(req('http://punicodex.com/zeus/'));
+    assert.strictEqual(res.status, 301);
+    assert.strictEqual(res.headers.get('Location'), 'https://punicodex.com/zeus/');
+  });
+
   await test('punycode host routes to the same temple as its Unicode form', async () => {
     const { domainToASCII } = require('node:url');
     const ascii = domainToASCII('achérōn.com');

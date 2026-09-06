@@ -496,6 +496,11 @@ const SUITES = [
     cmd: 'node test/seo-regression.test.js',
     timeout: 300000,
   },
+  {
+    name: 'SEO Canonical Audit',
+    cmd: 'node test/seo-canonical-audit.test.js',
+    timeout: 120000,
+  },
   { name: 'Vercel Config Contract', cmd: 'node test/vercel-config.test.js' },
   { name: 'Router Behavior Tests', cmd: 'node test/router-behavior.test.js', timeout: 60000 },
   { name: 'Interstitial Safety', cmd: 'node test/interstitial-safety.test.js' },

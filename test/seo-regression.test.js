@@ -53,6 +53,7 @@ function test(name, fn) {
 const read = (rel) => fs.readFileSync(path.join(root, rel), 'utf8');
 const exists = (rel) => fs.existsSync(path.join(root, rel));
 const titleOf = (html) => (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '';
+const descOf = (html) => (html.match(/<meta name="description" content="([^"]*)">/) || [])[1] || '';
 const LEXICON_IDS = new Set(LEXICON.map((e) => e.id));
 
 /* ------------------------------ blog titles ------------------------------ */
@@ -536,6 +537,215 @@ test('FAQPage markup has visible Q&A (patterns + texts)', () => {
 test('texts reading pages use og:type book', () => {
   const html = read('texts/theogony/index.html');
   assert.ok(html.includes('property="og:type" content="book"'), 'theogony og:type is not book');
+});
+
+/* --------------------- canonical hygiene / GSC defense -------------------- */
+
+const PUBLIC_HTML_ROOTS = [
+  'sites',
+  'store',
+  'blog',
+  'pantheon',
+  'lexicon',
+  'realms',
+  'tiers',
+  'type',
+  'search',
+  'ink',
+  'everyday',
+  'cards',
+  'game',
+  'connections',
+  'patterns',
+  'texts',
+  'codex',
+  'creatives',
+  'appraise',
+  'authenticity',
+  'arbitrage',
+  'about',
+  'careers',
+  'contact',
+  'herald',
+  'rulebook',
+  'screen',
+  'universities',
+];
+const SEO_EXCLUDE_RE =
+  /(^|\/)(\.git|\.vercel|node_modules|\.venv|\.venv_hieropy|Marketing|tools|scripts|templates|docs|platform|android|extension|extension-v2|mobile|admin-portal|account|scholars|\.backup|build\/intermediates)(\/|$)/;
+
+function walkHtml(dir, cb) {
+  if (!fs.existsSync(path.join(root, dir))) return;
+  for (const entry of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) {
+    if (entry.name.startsWith('.backup')) continue;
+    const full = path.join(root, dir, entry.name);
+    if (entry.isDirectory()) walkHtml(path.join(dir, entry.name), cb);
+    else if (entry.name.endsWith('.html')) cb(dir, entry.name, full);
+  }
+}
+
+test('robots.txt: /sites/ disallowed with asset exception', () => {
+  const robots = read('robots.txt');
+  assert.ok(/^Allow: \/sites\/\*\/assets\/$/m.test(robots), 'missing Allow: /sites/*/assets/');
+  assert.ok(/^Disallow: \/sites\/$/m.test(robots), 'missing Disallow: /sites/');
+  // The Allow must appear before or alongside the Disallow so longest-match
+  // crawlers process it; order does not matter for Google, but both must exist.
+});
+
+test('no public page links to non-canonical /sites/{id}/.../ paths', () => {
+  const bad = [];
+  for (const top of PUBLIC_HTML_ROOTS) {
+    walkHtml(top, (dir, file) => {
+      const rel = path.join(dir, file).replace(/\\/g, '/');
+      const html = read(rel);
+      const links = [...html.matchAll(/href=["']([^"']+)["']/g)].map((m) => m[1]);
+      for (const href of links) {
+        if (/^https?:\/\/punicodex\.com\/sites\/[^/]+\/(?!assets\/)/.test(href)) {
+          bad.push({ rel, href });
+        }
+      }
+    });
+  }
+  if (bad.length) {
+    const sample = bad
+      .slice(0, 5)
+      .map((b) => `${b.rel} → ${b.href}`)
+      .join('\n    ');
+    assert.fail(`${bad.length} link(s) to /sites/{id}/ non-asset paths. Sample:\n    ${sample}`);
+  }
+});
+
+test('no public page links to .html extension URLs', () => {
+  const bad = [];
+  for (const top of PUBLIC_HTML_ROOTS) {
+    walkHtml(top, (dir, file) => {
+      const rel = path.join(dir, file).replace(/\\/g, '/');
+      const html = read(rel);
+      const links = [...html.matchAll(/href=["']([^"']+)["']/g)].map((m) => m[1]);
+      for (const href of links) {
+        if (/^https?:\/\/punicodex\.com\/[^?#]+\.html/.test(href)) {
+          bad.push({ rel, href });
+        }
+      }
+    });
+  }
+  if (bad.length) {
+    const sample = bad
+      .slice(0, 5)
+      .map((b) => `${b.rel} → ${b.href}`)
+      .join('\n    ');
+    assert.fail(`${bad.length} link(s) to .html URLs. Sample:\n    ${sample}`);
+  }
+});
+
+test('every public HTML page has canonical or noindex robots directive', () => {
+  const missing = [];
+  for (const top of PUBLIC_HTML_ROOTS) {
+    walkHtml(top, (dir, file) => {
+      const rel = path.join(dir, file).replace(/\\/g, '/');
+      if (SEO_EXCLUDE_RE.test(rel)) return;
+      const html = read(rel);
+      const hasCanonical = /<link\s+rel=["']canonical["']\s+href=["'][^"']+["']/i.test(html);
+      const hasNoindex = /<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html);
+      if (!hasCanonical && !hasNoindex) missing.push(rel);
+    });
+  }
+  if (missing.length) {
+    const sample = missing.slice(0, 10).join('\n    ');
+    assert.fail(
+      `${missing.length} public page(s) missing canonical and noindex. Sample:\n    ${sample}`
+    );
+  }
+});
+
+test('indexable pages have unique titles', () => {
+  const seen = new Map();
+  const dupes = [];
+  for (const top of PUBLIC_HTML_ROOTS) {
+    walkHtml(top, (dir, file) => {
+      const rel = path.join(dir, file).replace(/\\/g, '/');
+      if (SEO_EXCLUDE_RE.test(rel)) return;
+      const html = read(rel);
+      if (/<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html)) return;
+      const title = titleOf(html);
+      if (!title) return;
+      if (seen.has(title)) {
+        dupes.push({ title, pages: [seen.get(title), rel] });
+      } else {
+        seen.set(title, rel);
+      }
+    });
+  }
+  if (dupes.length) {
+    const sample = dupes
+      .slice(0, 5)
+      .map((d) => `"${d.title}" on ${d.pages.join(' and ')}`)
+      .join('\n    ');
+    assert.fail(`${dupes.length} duplicate title(s). Sample:\n    ${sample}`);
+  }
+});
+
+test('indexable pages have unique meta descriptions', () => {
+  const seen = new Map();
+  const dupes = [];
+  for (const top of PUBLIC_HTML_ROOTS) {
+    walkHtml(top, (dir, file) => {
+      const rel = path.join(dir, file).replace(/\\/g, '/');
+      if (SEO_EXCLUDE_RE.test(rel)) return;
+      const html = read(rel);
+      if (/<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html)) return;
+      const desc = descOf(html);
+      if (!desc) return;
+      if (seen.has(desc)) {
+        dupes.push({ desc, pages: [seen.get(desc), rel] });
+      } else {
+        seen.set(desc, rel);
+      }
+    });
+  }
+  if (dupes.length) {
+    const sample = dupes
+      .slice(0, 5)
+      .map((d) => `"${d.desc.slice(0, 80)}…" on ${d.pages.join(' and ')}`)
+      .join('\n    ');
+    assert.fail(`${dupes.length} duplicate meta description(s). Sample:\n    ${sample}`);
+  }
+});
+
+test('legacy redirect pages point at clean /{id}/ URLs, never /sites/', () => {
+  const LEGACY_REDIRECTS = {
+    '/steh': '/seth',
+    '/achilles': '/achilleus',
+    '/aether': '/aither',
+    '/delphi': '/delphoi',
+    '/enki': '/ea',
+    '/europa': '/europe',
+    '/hercules': '/herakles',
+    '/jason': '/iason',
+    '/khaos': '/chaos',
+    '/oceanus': '/okeanos',
+    '/pegasus': '/pegasos',
+  };
+  for (const [from, to] of Object.entries(LEGACY_REDIRECTS)) {
+    const rel = `sites${from}/index.html`;
+    if (!exists(rel)) continue;
+    const html = read(rel);
+    assert.ok(
+      html.includes(`https://punicodex.com${to}/`),
+      `${rel} does not redirect to clean /${to}/ URL`
+    );
+    assert.ok(!html.includes(`/sites${to}/`), `${rel} still references /sites${to}/`);
+  }
+  for (const rel of ['sites/nike/original.html', 'sites/hermes/original.html']) {
+    if (!exists(rel)) continue;
+    const id = rel.split('/')[1];
+    const html = read(rel);
+    assert.ok(
+      html.includes(`https://punicodex.com/${id}/`),
+      `${rel} does not consolidate to clean /${id}/ URL`
+    );
+    assert.ok(!html.includes(`/sites/${id}/`), `${rel} still references /sites/${id}/`);
+  }
 });
 
 /* --------------------------------- summary ------------------------------- */

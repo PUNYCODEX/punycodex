@@ -630,11 +630,11 @@ function renderFullBook(edition) {
 
   const replacements = {
     TITLE: `The Unicode Herald — ${edition.quarter} First Edition | PuniCodex`,
-    DESCRIPTION: edition.landing.blurb,
+    DESCRIPTION: `${edition.label} — complete ${edition.quarter} edition. ${edition.landing.blurb}`,
     OG_TITLE: `The Unicode Herald — ${edition.quarter} First Edition`,
-    OG_DESCRIPTION: edition.landing.blurb,
+    OG_DESCRIPTION: `${edition.label} — complete ${edition.quarter} edition. ${edition.landing.blurb}`,
     JSON_TITLE: JSON.stringify(`The Unicode Herald — ${edition.quarter} First Edition`),
-    JSON_DESCRIPTION: JSON.stringify(edition.landing.blurb),
+    JSON_DESCRIPTION: JSON.stringify(`${edition.label} — complete ${edition.quarter} edition. ${edition.landing.blurb}`),
     EDITION_ID: edition.id,
     PUBLISHED_AT: edition.publishedAt,
     PUBLISHED_AT_DISPLAY: fmtDate(edition.publishedAt),
@@ -709,6 +709,7 @@ function main() {
 
   // Landing page
   const landingReplacements = {
+    CANONICAL: `https://punicodex.com/herald/`,
     TITLE: `${baseTitle} | PuniCodex`,
     DESCRIPTION: edition.landing.blurb,
     OG_TITLE: baseTitle,
@@ -733,11 +734,19 @@ function main() {
   writeFile(path.join(OUT_DIR, 'index.html'), applyReplacements(landingTemplate, landingReplacements));
 
   // Book edition cover/TOC duplicate
+  const editionIndexTitle = `${baseTitle} — ${edition.label} (${edition.quarter}) | PuniCodex`;
+  const editionIndexDescription = `${edition.label} of ${baseTitle}: ${edition.landing.blurb}`;
   writeFile(
     path.join(OUT_DIR, edition.id, 'index.html'),
     applyReplacements(landingTemplate, {
       ...landingReplacements,
       CANONICAL: `https://punicodex.com/herald/${edition.id}/`,
+      TITLE: editionIndexTitle,
+      DESCRIPTION: editionIndexDescription,
+      OG_TITLE: `${baseTitle} — ${edition.label} (${edition.quarter})`,
+      OG_DESCRIPTION: editionIndexDescription,
+      JSON_TITLE: JSON.stringify(`${baseTitle} — ${edition.label} (${edition.quarter})`),
+      JSON_DESCRIPTION: JSON.stringify(editionIndexDescription),
     })
   );
 

@@ -107,6 +107,7 @@ const mainPages = [
   { loc: '/cards/', priority: '0.6', changefreq: 'weekly' },
   { loc: '/rulebook/', priority: '0.6', changefreq: 'monthly' },
   { loc: '/pronunciation/', priority: '0.6', changefreq: 'monthly' },
+  { loc: '/engineering/', priority: '0.6', changefreq: 'monthly' },
 ];
 
 // Per-pantheon landing pages (/greek/, /norse/, etc.).

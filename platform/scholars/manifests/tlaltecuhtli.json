@@ -4,13 +4,13 @@
   "pantheon": "nahuatl",
   "tier": "tier-1",
   "taxonomyVersion": "0.2.0",
-  "generatedAt": "2026-08-30T01:40:25.346Z",
+  "generatedAt": "2026-09-06T01:43:14.878Z",
   "sections": [
     {
       "key": "overview",
       "label": "Overview",
       "purpose": "Concise scholarly summary of the figure, name, tradition, and significance.",
-      "body": "**Tlāltēcuhtli** ​(*tlaltecuhtli*) — ‌Earth · ‌Lord of ​the ​earth — ​belongs to ​the Nahuatl ​tradition, ‌where it ​is catalogued ​under the ‌domain \"Earth\". ​The ‌name means ​\"Lord of ‌the earth\"[^1].\n\n​Tlāltēcuhtli ​is the ​**living earth ​beneath the ​feet ‌of the ​Fifth Sun**, ‌the monster-toad ​whose ‌body became ​the world ‌and whose ​gaping ‌mouth swallows ​the sun ​each evening. ‌Unlike the ‌sky ‌gods who ​demand attention ​with thunder ‌and ​light, Tlāltēcuhtli ​works in ‌silence: receiving ​the ​dead, pushing ‌up crops, ​and reminding ‌mortals ​that every ​step is ​taken on ​a ‌conscious being.[^2]\n\n‌PuniCodex restores ​the name ‌as ​**Tlāltēcuhtli** and ​serves its ‌temple at ‌[tlaltecuhtli.com](https://punicodex.com/sites/tlaltecuhtli/). The ‌original ‌carries both ​stress and ‌vowel length, ​and ​exactly one ​historically valid ‌Unicode restoration ​exists, ​which places ​the name ‌in Tier ​1. ​The plain ​ASCII form ‌*tlaltecuhtli* survives ​as ‌a modern ​convenience imposed ‌by the ​early domain-name ‌system; ‌the restoration, ​not the ​fallback, is ​the ​form the ‌project defends ‌as philologically ​complete[^3].",
+      "body": "**Tlāltēcuhtli** ​(*tlaltecuhtli*) — ‌Earth · ‌Lord of ​the ​earth — ​belongs to ​the Nahuatl ​tradition, ‌where it ​is catalogued ​under the ‌domain \"Earth\". ​The ‌name means ​\"Lord of ‌the earth\"[^1].\n\n​Tlāltēcuhtli ​is the ​**living earth ​beneath the ​feet ‌of the ​Fifth Sun**, ‌the monster-toad ​whose ‌body became ​the world ‌and whose ​gaping ‌mouth swallows ​the sun ​each evening. ‌Unlike the ‌sky ‌gods who ​demand attention ​with thunder ‌and ​light, Tlāltēcuhtli ​works in ‌silence: receiving ​the ​dead, pushing ‌up crops, ​and reminding ‌mortals ​that every ​step is ​taken on ​a ‌conscious being.[^2]\n\n‌PuniCodex restores ​the name ‌as ​**Tlāltēcuhtli** and ​serves its ‌temple at ‌[tlaltecuhtli.com](https://punicodex.com/tlaltecuhtli/). The ‌original ‌carries both ​stress and ‌vowel length, ​and ​exactly one ​historically valid ‌Unicode restoration ​exists, ​which places ​the name ‌in Tier ​1. ​The plain ​ASCII form ‌*tlaltecuhtli* survives ​as ‌a modern ​convenience imposed ‌by the ​early domain-name ‌system; ‌the restoration, ​not the ​fallback, is ​the ​form the ‌project defends ‌as philologically ​complete[^3].",
       "sources": [
         {
           "citation": "Sahagún, Florentine Codex."

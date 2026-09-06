@@ -301,6 +301,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://punicodex.com/engineering/</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://punicodex.com/aboriginal/</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>

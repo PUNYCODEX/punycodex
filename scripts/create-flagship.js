@@ -2462,6 +2462,15 @@ function buildMetaDescription(entry, catalogEntry) {
     }
     desc = desc.trim();
   }
+  // Ensure every lore page has an entry-specific opener so duplicated legacy
+  // prose (e.g. Norse realm boilerplate) never produces identical descriptions.
+  const lowerDesc = desc.toLowerCase();
+  const namesItself =
+    lowerDesc.includes(entry.unicode.toLowerCase()) ||
+    (entry.ascii && lowerDesc.includes(entry.ascii.toLowerCase()));
+  if (desc && !namesItself) {
+    desc = `${entry.unicode}, ${entry.domain}. ${desc}`;
+  }
   if (desc.length < 120) {
     const fallback = `Scholarly restoration of ${entry.unicode}, the ${entry.domain}.`;
     desc = desc.length ? `${desc}${closer}`.trim() : `${fallback}${closer}`.trim();

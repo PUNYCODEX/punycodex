@@ -2581,12 +2581,30 @@ export const config = {
 export default function middleware(request) {
   const url = new URL(request.url);
 
+  // ─── 0a. Force HTTPS ────────────────────────────────────────────────
+  // Vercel's edge may receive plaintext requests; canonical content is
+  // always served over HTTPS. We flip the protocol and continue so that
+  // domain/path canonicalization happens in the same 301 hop.
+  const needsHttpsRedirect = url.protocol === 'http:';
+  if (needsHttpsRedirect) {
+    url.protocol = 'https:';
+  }
+
   // API routes: Vercel's trailingSlash:true issues a 308 redirect from
   // /api/v1/x to /api/v1/x/, which breaks CORS preflight and clients that
   // don't follow redirects (e.g. fetch without redirect:'follow').
   // Internally rewrite no-trailing-slash API calls to the slash version so
   // the function is invoked directly without a redirect.
   if (url.pathname.startsWith('/api/') && url.pathname.length > 1 && !url.pathname.endsWith('/')) {
+    if (needsHttpsRedirect) {
+      return new Response(null, {
+        status: 301,
+        headers: {
+          'Location': url.toString(),
+          'Cache-Control': 'public, max-age=0, must-revalidate',
+        },
+      });
+    }
     const rewritten = new URL(request.url);
     rewritten.pathname += '/';
     return fetch(rewritten);
@@ -2594,6 +2612,15 @@ export default function middleware(request) {
 
   // Skip API routes — let Vercel Functions handle them
   if (url.pathname.startsWith('/api/')) {
+    if (needsHttpsRedirect) {
+      return new Response(null, {
+        status: 301,
+        headers: {
+          'Location': url.toString(),
+          'Cache-Control': 'public, max-age=0, must-revalidate',
+        },
+      });
+    }
     return fetch(request);
   }
 
@@ -2658,8 +2685,6 @@ export default function middleware(request) {
   // Normalize host: lowercase, strip port, trim whitespace
   const host = (request.headers.get('host') || '').toLowerCase().split(':')[0].trim();
 
-
-
   // ─── 0b. Defensive domains ─────────────────────────────────────────
   // punycodex.com (legacy brand) and www variants -> redirect to punicodex.com
   const DEFENSIVE_DOMAINS = new Set(['punycodex.com', 'www.punycodex.com', 'www.punicodex.com']);
@@ -2674,6 +2699,11 @@ export default function middleware(request) {
     });
   }
 
+  // Generic www. stripping for non-punicodex.com hosts before the domain-map
+  // lookup. Defensive domains are handled above; this lets a single
+  // DOMAIN_TO_ID entry cover both example.com and www.example.com.
+  const lookupHost = host.startsWith('www.') ? host.slice(4) : host;
+
   // ─── 0. Direct-serve flagship domains ──────────────────────────────
   // Some deity domains should serve their temple page directly instead
   // of redirecting to punicodex.com/{id}.
@@ -2681,8 +2711,17 @@ export default function middleware(request) {
     'helheimr.com': 'helheimr',
     'www.helheimr.com': 'helheimr',
   };
-  const directId = DIRECT_SERVE_MAP[host];
+  const directId = DIRECT_SERVE_MAP[lookupHost];
   if (directId) {
+    if (needsHttpsRedirect) {
+      return new Response(null, {
+        status: 301,
+        headers: {
+          'Location': url.toString(),
+          'Cache-Control': 'public, max-age=0, must-revalidate',
+        },
+      });
+    }
     // Shared static assets live at the project root, not inside /sites/{id}.
     // Serve them from the root so root-relative links work: /js/...,
     // /css/..., the self-hosted webfonts (/assets/fonts/), and the brand
@@ -2705,7 +2744,7 @@ export default function middleware(request) {
     'www.νίκη.com': 'https://punicodex.com/nike',
     'www.xn--kxaqik.com': 'https://punicodex.com/nike',
   };
-  const externalTarget = EXTERNAL_REDIRECT_DOMAINS[host];
+  const externalTarget = EXTERNAL_REDIRECT_DOMAINS[lookupHost];
   if (externalTarget) {
     // Preserve path + query (νίκη.com/lore/?utm=x →
     // https://punicodex.com/nike/lore/?utm=x) so deep links and campaign
@@ -2721,7 +2760,7 @@ export default function middleware(request) {
 
   // ─── 2. Domain redirect ────────────────────────────────────────────
   // Unicode/punycode domains → 301 redirect to punicodex.com/{id}
-  const id = DOMAIN_TO_ID[host];
+  const id = DOMAIN_TO_ID[lookupHost];
   if (id) {
     url.hostname = 'punicodex.com';
     url.pathname = '/' + id + url.pathname;
@@ -2747,6 +2786,18 @@ export default function middleware(request) {
         },
       });
     }
+  }
+
+  // Any remaining HTTP request has reached a non-redirect host/path and
+  // should be redirected to HTTPS before we serve or rewrite internally.
+  if (needsHttpsRedirect) {
+    return new Response(null, {
+      status: 301,
+      headers: {
+        'Location': url.toString(),
+        'Cache-Control': 'public, max-age=0, must-revalidate',
+      },
+    });
   }
 
   // ─── 4. Temple clean-URL rewrite ───────────────────────────────────

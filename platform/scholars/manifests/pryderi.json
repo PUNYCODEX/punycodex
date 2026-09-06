@@ -4,7 +4,7 @@
   "pantheon": "celtic",
   "tier": "tier-2",
   "taxonomyVersion": "0.2.0",
-  "generatedAt": "2026-08-30T01:40:25.626Z",
+  "generatedAt": "2026-09-06T01:43:15.055Z",
   "sections": [
     {
       "key": "overview",
@@ -19,7 +19,7 @@
           "citation": "Mac Cana, Proinsias, The Mabinogi, 2nd ed. (Cardiff: University of Wales Press, 1992), on Pryderi as the sole figure common to all Four Branches."
         },
         {
-          "citation": "PuniCodex domain register for this entry: pryderi.com held outside the collection, watched for release; temple served at /sites/pryderi/."
+          "citation": "PuniCodex domain register for this entry: pryderi.com held outside the collection, watched for release; temple served at /pryderi/."
         }
       ],
       "media": [],
@@ -33,7 +33,7 @@
       "key": "the-name",
       "label": "The Name",
       "purpose": "Etymology, ASCII constraint, Unicode restoration, name variations, tier classification.",
-      "body": "The name ​is attested in Middle ‌Welsh as **Pryderi**, *Pryderi ‌uab Pwyll*, in ​the Four Branches of ​the Mabinogi. The First ​Branch supplies its ​own etymology, and it ​is one of the ‌most explicit aetiological ​namings in medieval literature: ​when Teyrnon brings ‌the lost boy home, ​[[rhiannon|Rhiannon]] says that if ‌the news is ​true her *pryder* — ‌her care, her anxiety ​— is lifted ​from her, and Pwyll ​declares that the child ​should take his ​name from the word ‌his mother spoke when ​the news was ‌brought to her.[^1] The ​Welsh common noun *pryder*, ‌'care, anxiety, worry', ​is a living word, ‌and the lexicon's ​gloss 'Care, anxiety' follows ‌the tale's own derivation.[^2]\n\n​Older scholarship also ​noted the name's resemblance ‌to *Prydain*, 'Britain', and ‌to the *Pritan-* ‌names of the island's ​peoples, but no derivation ​beyond the tale's ‌own commands consensus, and ​honest scholarship says so.[^3] ​His foster-name is ‌part of the record: ​Teyrnon's household called the ​golden-haired foundling *Gwri ‌Wallt Euryn*, 'Gwri of ​the Golden Hair', ‌and the triads remember ​him as the swineherd ​of his foster-father ​Pendaran Dyfed.\n\nThe ASCII ​form is not a ‌compromise here: Middle ‌Welsh writes the name ​in plain Latin letters, ‌and the normalized ​spelling is already *Pryderi*. ​There is no diacritic ‌and no distinctive ‌letter for the restoration ‌to recover; only the ‌capital distinguishes the ​restored form from the ‌input, which places ​the name in Tier ​2 by the mechanical ​rule.\n\nThe letter-by-letter ‌transformation runs:\n\n- **p** ​→ **P** — Same, ​capitalized\n- **r** ​→ **r** — Same\n‌- **y** → **y** ​— Same\n- ​**d** → **d** — ​Same\n- **e** → ‌**e** — Same\n​- **r** → **r** ‌— Same\n- **i** ​→ **i** — ‌Same\n\nThe project holds ​no domain for ‌this name: **pryderi.com** is ‌registered to a third ​party outside the ​PuniCodex collection and is ​watched for release. The ​temple is served ‌at /sites/pryderi/ and claims ‌no domain it does ​not hold.",
+      "body": "The name ​is attested in Middle ‌Welsh as **Pryderi**, *Pryderi ‌uab Pwyll*, in ​the Four Branches of ​the Mabinogi. The First ​Branch supplies its ​own etymology, and it ​is one of the ‌most explicit aetiological ​namings in medieval literature: ​when Teyrnon brings ‌the lost boy home, ​[[rhiannon|Rhiannon]] says that if ‌the news is ​true her *pryder* — ‌her care, her anxiety ​— is lifted ​from her, and Pwyll ​declares that the child ​should take his ​name from the word ‌his mother spoke when ​the news was ‌brought to her.[^1] The ​Welsh common noun *pryder*, ‌'care, anxiety, worry', ​is a living word, ‌and the lexicon's ​gloss 'Care, anxiety' follows ‌the tale's own derivation.[^2]\n\n​Older scholarship also ​noted the name's resemblance ‌to *Prydain*, 'Britain', and ‌to the *Pritan-* ‌names of the island's ​peoples, but no derivation ​beyond the tale's ‌own commands consensus, and ​honest scholarship says so.[^3] ​His foster-name is ‌part of the record: ​Teyrnon's household called the ​golden-haired foundling *Gwri ‌Wallt Euryn*, 'Gwri of ​the Golden Hair', ‌and the triads remember ​him as the swineherd ​of his foster-father ​Pendaran Dyfed.\n\nThe ASCII ​form is not a ‌compromise here: Middle ‌Welsh writes the name ​in plain Latin letters, ‌and the normalized ​spelling is already *Pryderi*. ​There is no diacritic ‌and no distinctive ‌letter for the restoration ‌to recover; only the ‌capital distinguishes the ​restored form from the ‌input, which places ​the name in Tier ​2 by the mechanical ​rule.\n\nThe letter-by-letter ‌transformation runs:\n\n- **p** ​→ **P** — Same, ​capitalized\n- **r** ​→ **r** — Same\n‌- **y** → **y** ​— Same\n- ​**d** → **d** — ​Same\n- **e** → ‌**e** — Same\n​- **r** → **r** ‌— Same\n- **i** ​→ **i** — ‌Same\n\nThe project holds ​no domain for ‌this name: **pryderi.com** is ‌registered to a third ​party outside the ​PuniCodex collection and is ​watched for release. The ​temple is served ‌at /pryderi/ and claims ‌no domain it does ​not hold.",
       "sources": [
         {
           "citation": "The Mabinogi, First Branch (Pwyll Pendefig Dyfed), trans. Sioned Davies (Oxford University Press, 2007) — the naming scene at Arberth."

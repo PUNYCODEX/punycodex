@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- PUNICODEX-ANALYTICS-START -->
+<script src="/js/analytics-beacon.js?v=0a4a40259b" defer></script>
+<!-- PUNICODEX-ANALYTICS-END -->
+
+<!-- PUNICODEX-UNIVERSITY-COLLABORATORS-HEAD-START -->
+<link rel="stylesheet" href="/css/university-collaborators.css?v=3" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/css/university-collaborators.css?v=3"></noscript>
+<script src="/js/university-collaborators.js?v=3" defer></script>
+<!-- PUNICODEX-UNIVERSITY-COLLABORATORS-HEAD-END -->
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <title>Engineering PuniCodex — How the Unicode Pantheon Is Built</title>
+    <meta name="description" content="A look inside the architecture of PuniCodex: 546 flagships, 357 Unicode domains, a 269-suite test battery, bespoke generative hero effects, and a single-source flywheel.">
+    <link rel="canonical" href="https://punicodex.com/engineering/">
+    <meta property="og:title" content="Engineering PuniCodex — How the Unicode Pantheon Is Built">
+    <meta property="og:description" content="Inside the flywheel: 269 test suites, 533 unique hero effects, 201 API handlers, and one hand-edited lexicon that powers everything.">
+    <meta property="og:image" content="https://punicodex.com/assets/brand/05-social/punicodex-og-image-1200x630.png">
+    <meta property="og:url" content="https://punicodex.com/engineering/">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="/assets/fonts/fonts.css?v=8c5b8a17eb">
+
+    <link rel="stylesheet" href="/css/main.css?v=perf25">
+    <link rel="stylesheet" href="/css/engineering.css?v=1">
+    <link rel="stylesheet" href="/css/punicodex-tokens.css">
+    <link rel="stylesheet" href="/css/brand-overrides.css">
+    <link rel="stylesheet" href="/css/pc-fx.css?v=1">
+    <script src="/js/pc-fx-core.js?v=1" defer></script>
+    <script src="/js/pc-fx-eclipse.js?v=1" defer></script>
+    <link rel="icon" type="image/svg+xml" href="/assets/brand/02-favicons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/02-favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/02-favicons/favicon-16x16.png">
+    <link rel="icon" href="/assets/brand/02-favicons/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/assets/brand/02-favicons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/assets/brand/02-favicons/mask-icon.svg" color="#D4AF37">
+    <link rel="manifest" href="/assets/brand/06-code/site.webmanifest">
+
+    <link rel="stylesheet" href="/css/nav-more.css?v=5">
+    <link rel="stylesheet" href="/css/mobile-menu.css?v=4">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Engineering PuniCodex",
+      "url": "https://punicodex.com/engineering/",
+      "description": "An open look at the PuniCodex architecture, test suite, and generational flywheel.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "PuniCodex",
+        "url": "https://punicodex.com/"
+      }
+    }
+    </script>
+<!-- PUNICODEX-HERALD-BEACON-START -->
+<link rel="stylesheet" href="/css/herald-beacon.css?v=1" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/css/herald-beacon.css?v=1"></noscript>
+<script src="/js/herald-beacon.js?v=1" defer></script>
+<!-- PUNICODEX-HERALD-BEACON-END -->
+<!-- PUNICODEX-COOKIE-CONSENT-START -->
+<link rel="stylesheet" href="/css/cookie-consent.css?v=1" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/css/cookie-consent.css?v=1"></noscript>
+<script src="/js/cookie-consent.js?v=1" defer></script>
+<!-- PUNICODEX-COOKIE-CONSENT-END -->
+</head>
+<body class="page-engineering">
+
+    <nav class="main-nav" id="main-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-wordmark"><picture><source srcset="/assets/brand/01-logos/punicodex-wordmark-ivory-360.webp 360w, /assets/brand/01-logos/punicodex-wordmark-ivory-720.webp 720w, /assets/brand/01-logos/punicodex-wordmark-ivory-1080.webp 1080w, /assets/brand/01-logos/punicodex-wordmark-ivory.webp 3600w" sizes="(max-width: 640px) 173px, 231px" type="image/webp"><img src="/assets/brand/01-logos/punicodex-wordmark-ivory.png" srcset="/assets/brand/01-logos/punicodex-wordmark-ivory-360.png 360w, /assets/brand/01-logos/punicodex-wordmark-ivory-720.png 720w, /assets/brand/01-logos/punicodex-wordmark-ivory-1080.png 1080w, /assets/brand/01-logos/punicodex-wordmark-ivory.png 3600w" sizes="(max-width: 640px) 173px, 231px" alt="PuniCodex — The Unicode Pantheon" width="3600" height="374"></picture></a>
+            <div class="nav-links">
+                <a href="/pantheon/" class="nav-link nav-link--featured">Pantheon</a>
+                <a href="/realms/" class="nav-link">Realms</a>
+                <a href="/patterns/" class="nav-link">Patterns</a>
+                <a href="/trending/" class="nav-link">Trending</a>
+                <a href="/store/" class="nav-link">Store</a>
+                <a href="/connections/" class="nav-link">Connections</a>
+                <div class="nav-more">
+                    <button class="nav-more-toggle" aria-haspopup="true" aria-expanded="false">More</button>
+                    <div class="nav-more-menu">
+                        <div class="nav-more-section"><span class="nav-more-section-title">Explore</span>
+                            <a href="/search/" class="nav-link">Search</a>
+                            <a href="/everyday/" class="nav-link">Words</a>
+                            <a href="/screen/" class="nav-link">Screen</a>
+                        </div>
+                        <div class="nav-more-section"><span class="nav-more-section-title">Tools</span>
+                            <a href="/type/" class="nav-link">Type</a>
+                            <a href="/ink/" class="nav-link">Ink</a>
+                            <a href="/oracle/" class="nav-link">Oracle</a>
+                            <a href="/authenticity/" class="nav-link">Authenticity</a>
+                            <a href="/app/" class="nav-link">App</a>
+                            <a href="/extension/" class="nav-link">Extension</a>
+                            <a href="/api/v1/docs/" class="nav-link">API</a>
+                            <a href="/codex/" class="nav-link">Codex</a>
+                            <a href="/appraise/" class="nav-link">Appraise</a>
+                        </div>
+                        <div class="nav-more-section"><span class="nav-more-section-title">Resources</span>
+                            <a href="/lexicon/" class="nav-link">Lexicon</a>
+                            <a href="/texts/" class="nav-link">Texts</a>
+                            <a href="/blog/" class="nav-link">Blog</a>
+                            <a href="/cards/" class="nav-link">Cards</a>
+                            <a href="/creatives/" class="nav-link">Creatives</a>
+                            <a href="/scholars/" class="nav-link">Scholars</a>
+                            <a href="/herald/" class="nav-link">Herald</a>
+                            <a href="/rulebook/" class="nav-link">Rulebook</a>
+                            <a href="/screen/" class="nav-link">Screen</a>
+                        </div>
+                        <div class="nav-more-section"><span class="nav-more-section-title">About</span>
+                            <a href="/about/" class="nav-link">About</a>
+                            <a href="/university-sponsorship/" class="nav-link">Universities</a>
+                            <a href="/about/founder/" class="nav-link">Founder</a>
+                            <a href="/careers/" class="nav-link">Careers</a>
+                            <a href="/contact/" class="nav-link">Contact</a>
+                            <a href="/terms/" class="nav-link">Terms</a>
+                            <a href="/privacy/" class="nav-link">Privacy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/pantheon/" class="nav-cta"><span>Enter</span></a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-section">
+            <span class="mobile-menu-title">Explore</span>
+            <div class="mobile-menu-group">
+                <a href="/pantheon/" class="mobile-link--featured">Pantheon</a>
+                <a href="/realms/">Realms</a>
+                <a href="/patterns/">Patterns</a>
+                <a href="/trending/">Trending</a>
+                <a href="/store/">Store</a>
+                <a href="/connections/">Connections</a>
+                <a href="/search/">Search</a>
+                <a href="/everyday/">Words</a>
+                <a href="/screen/">Screen</a>
+            </div>
+        </div>
+        <div class="mobile-menu-section">
+            <span class="mobile-menu-title">Tools</span>
+            <div class="mobile-menu-group">
+                <a href="/type/">Type</a>
+                <a href="/ink/">Ink</a>
+                <a href="/oracle/">Oracle</a>
+                <a href="/authenticity/">Authenticity</a>
+                <a href="/app/">App</a>
+                <a href="/extension/">Extension</a>
+                <a href="/api/v1/docs/">API</a>
+                <a href="/codex/">Codex</a>
+                <a href="/appraise/">Appraise</a>
+            </div>
+        </div>
+        <div class="mobile-menu-section">
+            <span class="mobile-menu-title">Resources</span>
+            <div class="mobile-menu-group">
+                <a href="/lexicon/">Lexicon</a>
+                <a href="/texts/">Texts</a>
+                <a href="/blog/">Blog</a>
+                <a href="/cards/">Cards</a>
+                <a href="/creatives/">Creatives</a>
+                <a href="/scholars/">Scholars</a>
+                <a href="/herald/">Herald</a>
+                <a href="/rulebook/">Rulebook</a>
+                <a href="/screen/">Screen</a>
+            </div>
+        </div>
+        <div class="mobile-menu-section">
+            <span class="mobile-menu-title">About</span>
+            <div class="mobile-menu-group">
+                <a href="/about/">About</a>
+                <a href="/university-sponsorship/">Universities</a>
+                <a href="/about/founder/">Founder</a>
+                <a href="/careers/">Careers</a>
+                <a href="/contact/">Contact</a>
+                <a href="/terms/">Terms</a>
+                <a href="/privacy/">Privacy</a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <p class="eng-eyebrow text-center reveal-up">Open Architecture</p>
+                <h1 class="display-lg text-center reveal-up">Engineering<br>PuniCodex</h1>
+                <p class="body-lg eng-hero-sub text-center reveal-up">A cathedral of code generated from a single source of truth. No framework. No shortcuts. One hand-edited lexicon powers 546 temples, 357 Unicode domains, browser extensions, a mobile app, an AI oracle, and a quarter-million-assertion test battery.</p>
+            </div>
+        </section>
+
+        <section class="eng-section">
+            <div class="container">
+                <p class="eng-eyebrow reveal-up">Scale</p>
+                <h2 class="eng-heading reveal-up">By the Numbers</h2>
+                <p class="eng-lead reveal-up">These figures are not marketing estimates. They are the live counts the generator writes into <code>data-version.json</code> every time the flywheel turns.</p>
+                <div class="eng-stats reveal-up">
+                    <div class="eng-stat"><span class="eng-stat-num">983</span><span class="eng-stat-label">Lexicon Entries</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">546</span><span class="eng-stat-label">Flagship Temples</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">357</span><span class="eng-stat-label">Owned Unicode Domains</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">25</span><span class="eng-stat-label">Pantheons</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">269</span><span class="eng-stat-label">Test Suites</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">~250k</span><span class="eng-stat-label">Assertions per Run</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">533</span><span class="eng-stat-label">Unique Hero Effects</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">201</span><span class="eng-stat-label">API Handler Modules</span></div>
+                    <div class="eng-stat"><span class="eng-stat-num">262k</span><span class="eng-stat-label">Source Lines</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="eng-section eng-section-alt">
+            <div class="container">
+                <p class="eng-eyebrow reveal-up">The Flywheel</p>
+                <h2 class="eng-heading reveal-up">One Source of Truth</h2>
+                <p class="eng-lead reveal-up">Every temple, API response, browser extension, and AI corpus line is regenerated from canonical files. Edit the source, run the generator, run the tests, commit. The divergence gate guarantees that generated artifacts never drift.</p>
+                <div class="eng-flywheel reveal-up">
+                    <div class="eng-step">
+                        <span class="eng-step-num">1</span>
+                        <div>
+                            <h4>Edit the Canonical Source</h4>
+                            <p><code>type/js/lexicon.js</code>, <code>js/archetypes-v2.js</code>, <code>platform/db/owned-domains.json</code>, <code>platform/blog/content/*.json</code>, and a handful of atlases are edited by hand. Everything else is derived.</p>
+                        </div>
+                    </div>
+                    <div class="eng-step">
+                        <span class="eng-step-num">2</span>
+                        <div>
+                            <h4>Run the Generator</h4>
+                            <p><code>npm run generate</code> executes 46 scripts in dependency order: temples, sitemap, middleware domain map, AI corpora, store pages, OG cards, lexicon copies for every client.</p>
+                        </div>
+                    </div>
+                    <div class="eng-step">
+                        <span class="eng-step-num">3</span>
+                        <div>
+                            <h4>Pass the Gates</h4>
+                            <p><code>npm test</code> runs 269 suites. <code>npm run generate:check</code> regenerates again and fails on any dirty artifact. If the tests pass and the tree is clean, the change is valid.</p>
+                        </div>
+                    </div>
+                    <div class="eng-step">
+                        <span class="eng-step-num">4</span>
+                        <div>
+                            <h4>Deploy Prebuilt</h4>
+                            <p>GitHub Actions builds and deploys via <code>vercel deploy --prebuilt</code>. The same generator output that passed locally is what ships.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="eng-section">
+            <div class="container">
+                <p class="eng-eyebrow reveal-up">Quality</p>
+                <h2 class="eng-heading reveal-up">Gates, Not Guesses</h2>
+                <p class="eng-lead reveal-up">PuniCodex treats correctness as infrastructure. A page cannot ship with a missing canonical, a duplicate title, or a stale <code>/sites/</code> link — the test suite fails first.</p>
+                <div class="eng-grid reveal-up">
+                    <div class="eng-card eng-card--half">
+                        <h3>Test Infrastructure</h3>
+                        <p>269 declared suites, 280 test files, and roughly 250,000 assertions run serially so stateful suites do not collide.</p>
+                        <ul>
+                            <li>Lexicon Validator: 90,606 structure assertions</li>
+                            <li>Engine unit tests</li>
+                            <li>Flywheel integrity validator</li>
+                            <li>SEO regression + canonical audit</li>
+                            <li>Link checker, Lighthouse, accessibility sweep</li>
+                            <li>Red-team authenticity benchmarks</li>
+                        </ul>
+                    </div>
+                    <div class="eng-card eng-card--half">
+                        <h3>The Divergence Gate</h3>
+                        <p>After local edits, CI regenerates every artifact and compares the working tree. If anything differs, the build fails.</p>
+                        <ul>
+                            <li>Enforces the "never hand-edit generated outputs" rule</li>
+                            <li>Catches stale middleware, sitemap, and temple pages</li>
+                            <li>Idempotent: skipped when canonical hashes match</li>
+                        </ul>
+                        <span class="eng-codebar">npm run generate:check</span>
+                    </div>
+                    <div class="eng-card eng-card--third">
+                        <h3>Format &amp; Lint</h3>
+                        <p>Biome 2.5 enforces one style across the entire codebase: 2-space indentation, single quotes, LF, width 100.</p>
+                    </div>
+                    <div class="eng-card eng-card--third">
+                        <h3>Philological Accuracy</h3>
+                        <p><code>scripts/validate-accuracy.js</code> and <code>ACCURACY.md</code> guard original scripts, punycode, and restoration reasoning.</p>
+                    </div>
+                    <div class="eng-card eng-card--third">
+                        <h3>SEO Hardening</h3>
+                        <p>Canonical links, unique titles/descriptions, HTTPS/www redirects, and robots.txt rules are enforced by tests.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="eng-section eng-section-alt">
+            <div class="container">
+                <p class="eng-eyebrow reveal-up">Frontend</p>
+                <h2 class="eng-heading reveal-up">Vanilla, by Design</h2>
+                <p class="eng-lead reveal-up">No React. No Vue. No build-step bloat. Every page is static HTML, shared CSS, and vanilla JavaScript served from Vercel with immutable asset caching.</p>
+                <div class="eng-grid reveal-up">
+                    <div class="eng-card eng-card--half">
+                        <h3>Static &amp; Shared</h3>
+                        <p>37 shared CSS files and 65 shared JS files power ~990 site directories. Temples share a single base template and inherit tab layouts from <code>templates/flagship/</code>.</p>
+                        <ul>
+                            <li><code>css/temple-base.css</code>, <code>js/temple-base.js</code></li>
+                            <li><code>css/punicodex-tokens.css</code> design tokens</li>
+                            <li><code>js/px-core.js</code> interaction core</li>
+                        </ul>
+                    </div>
+                    <div class="eng-card eng-card--half">
+                        <h3>Bespoke Hero Effects</h3>
+                        <p>Each flagship carries its own generative canvas effect. <code>templates/flagship/effects/effects.json</code> maps 546 temples to 533 unique canvas programs driven by <code>js/flagship-canvas.js</code>.</p>
+                        <ul>
+                            <li>Particle systems, storms, flames, aurora</li>
+                            <li>Culture-specific effects (e.g., Canaanite war, descent gate)</li>
+                            <li>Respects <code>prefers-reduced-motion</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="eng-section">
+            <div class="container">
+                <p class="eng-eyebrow reveal-up">Platform</p>
+                <h2 class="eng-heading reveal-up">APIs, Databases &amp; Edge</h2>
+                <p class="eng-lead reveal-up">The public API is a collection of Vercel serverless functions backed by 201 handler modules. Edge middleware routes Unicode domains and canonicalizes temple URLs before a function ever runs.</p>
+                <div class="eng-grid reveal-up">
+                    <div class="eng-card eng-card--third">
+                        <h3>33 API Functions</h3>
+                        <p>12 catch-all routers plus 21 specific endpoints and webhooks under <code>api/</code>.</p>
+                    </div>
+                    <div class="eng-card eng-card--third">
+                        <h3>201 Handlers</h3>
+                        <p>Modular handlers in <code>platform/api-handlers/</code> covering admin, v1, v2, search, analytics, and crawler.</p>
+                    </div>
+                    <div class="eng-card eng-card--third">
+                        <h3>Edge Middleware</h3>
+                        <p><code>middleware.js</code> routes deity domains, strips <code>www.</code>, upgrades HTTP to HTTPS, and rewrites <code>/sites/{id}/</code> to clean <code>/{id}/</code> URLs.</p>
+                    </div>
+                    <div class="eng-card eng-card--half">
+                        <h3>Data Stores</h3>
+                        <ul>
+                            <li>SQLite (<code>better-sqlite3</code>) for local + ephemeral Vercel</li>
+                            <li>Postgres for production operational state</li>
+                            <li>Redis for global rate limiting</li>
+                            <li>Vercel Blob for creative uploads when configured</li>
+                        </ul>
+                    </div>
+                    <div class="eng-card eng-card--half">
+                        <h3>Crons &amp; Workflows</h3>
+                        <ul>
+                            <li>12 scheduled jobs in <code>vercel.json</code></li>
+                            <li>Nightly evolution cycle</li>
+                            <li>Weekly red-team authenticity run</li>
+                            <li>Domain availability and crawler queues</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="eng-section eng-section-alt">
+            <div class="container">
+                <p class="eng-eyebrow reveal-up">AI &amp; Clients</p>
+                <h2 class="eng-heading reveal-up">Across Every Surface</h2>
+                <p class="eng-lead reveal-up">The same canonical lexicon feeds six client platforms and an AI oracle fine-tuned on PuniCodex philology.</p>
+                <div class="eng-grid reveal-up">
+                    <div class="eng-card eng-card--half">
+                        <h3>Clients</h3>
+                        <ul>
+                            <li>Type-tool browser extension (MV3)</li>
+                            <li>Authenticity / brand-protection extension (MV3)</li>
+                            <li>Mobile PWA + Capacitor Android app</li>
+                            <li>Electron desktop browser</li>
+                            <li>SDKs for JS, iOS, Android, Flutter, React Native, embedded, wearables, WordPress</li>
+                        </ul>
+                    </div>
+                    <div class="eng-card eng-card--half">
+                        <h3>Oracle &amp; Corpus</h3>
+                        <p>The oracle is grounded in the lexicon, pronunciation engine, and source catalog. Behind it sits a ~233,000-line AI corpus exported from the same canonical sources.</p>
+                        <ul>
+                            <li>NVIDIA Nemotron for philosophical + pattern queries</li>
+                            <li>Instructions, chat, safety, reasoning, and oracle datasets</li>
+                            <li>Hugging Face export pipeline</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="eng-section">
+            <div class="container">
+                <div class="eng-oss reveal-up">
+                    <p class="eng-eyebrow">Open Source</p>
+                    <h2 class="eng-heading">Built in the Open</h2>
+                    <p class="eng-lead">PuniCodex code is released under the ISC license. Datasets are CC BY 4.0. The architecture is intentionally plain so that scholars, contributors, and sponsors can inspect exactly how every page is produced.</p>
+                    <span class="eng-license">ISC License · CC BY 4.0 Data</span>
+                    <div class="eng-cta">
+                        <a href="/api/v1/docs/" class="eng-btn">Browse the API</a>
+                        <a href="/pantheon/" class="eng-btn" style="background:transparent;color:var(--eng-accent);border:1px solid var(--eng-accent);">Enter the Pantheon</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<!-- PUNICODEX-UNIVERSITY-COLLABORATORS-BODY-START -->
+<div id="university-collaborators-strip" role="complementary" aria-label="Academic Collaborators"></div>
+<!-- PUNICODEX-UNIVERSITY-COLLABORATORS-BODY-END -->
+<footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="footer-wordmark"><picture><source srcset="/assets/brand/01-logos/punicodex-wordmark-camel-gold.webp" type="image/webp"><img src="/assets/brand/01-logos/punicodex-wordmark-camel-gold.png" alt="PuniCodex — The Unicode Pantheon" width="680" height="119"></picture></a>
+                    <p class="footer-tagline">Restoring the original names of the gods to the digital realm.</p>
+                </div>
+                <div class="footer-column">
+                    <h2 class="footer-heading">Explore</h2>
+                    <a href="/pantheon/">Pantheon</a>
+                    <a href="/realms/">Realms</a>
+                    <a href="/lexicon/">Lexicon</a>
+                    <a href="/connections/">Connections</a>
+                    <a href="/patterns/">Patterns</a>
+                    <a href="/everyday/">Words</a>
+                    <a href="/ink/">Ink</a>
+                    <a href="/trending/">Trending</a>
+                    <a href="/tiers/">Tier System</a>
+                    <a href="/rulebook/">Rulebook</a>
+                    <a href="/type/">Type</a>
+                    <a href="/game/">Game</a>
+                    <a href="/search/">Search</a>
+                    <a href="/store/">Store</a>
+                </div>
+                <div class="footer-column">
+                    <h2 class="footer-heading">Resources</h2>
+                    <a href="/texts/">Texts</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/cards/">Cards</a>
+                    <a href="/creatives/">Creatives</a>
+                    <a href="/scholars/">Scholars</a>
+                    <a href="/herald/">Herald</a>
+                    <a href="/screen/">Screen</a>
+                    <a href="/authenticity/">Authenticity</a>
+                    <a href="/pronunciation/">Pronunciation</a>
+                    <a href="/innovation/">Innovation</a>
+                    <a href="/arbitrage/">Arbitrage</a>
+                </div>
+                <div class="footer-column">
+                    <h2 class="footer-heading">Connect</h2>
+                    <a href="/about/">About</a>
+                    <a href="/about/founder/">Founder</a>
+                    <a href="/art/">Art</a>
+                    <a href="/careers/">Careers</a>
+                    <a href="/university-sponsorship/">Universities</a>
+                    <a href="/contact/">Contact</a>
+                    <a href="/privacy/">Privacy</a>
+                    <a href="/terms/">Terms</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PuniCodex. All rites reserved.</p>
+                <a href="https://hekaweb.com" target="_blank" rel="noopener" class="hekaweb-credit" aria-label="Proudly built and maintained by HEKAWEB">
+                    <span class="hekaweb-by">Proudly built &amp; maintained by</span>
+                    <span class="hekaweb-name">HEKAWEB</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/px-core.js?v=perf21" defer></script>
+    <script src="/js/main.js?v=perf20" defer></script>
+</body>
+</html>

@@ -77,10 +77,10 @@ function run() {
       const html = fs.readFileSync(file, 'utf8');
       assert.ok(html.includes('noindex'), `${from}: stub must be noindex`);
       assert.ok(
-        html.includes(`rel="canonical" href="https://punicodex.com/sites/${to}/"`),
+        html.includes(`rel="canonical" href="https://punicodex.com/${to}/"`),
         `${from}: canonical must point to ${to}`
       );
-      assert.ok(html.includes(`url=https://punicodex.com/sites/${to}/`), `${from}: refresh target`);
+      assert.ok(html.includes(`url=https://punicodex.com/${to}/`), `${from}: refresh target`);
     }
   });
 

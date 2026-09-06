@@ -1,8 +1,13 @@
 User-agent: *
 Allow: /
-Disallow: /api/
+# /sites/{id}/* is the on-disk layout for temple pages. The clean /{id}/* URL
+# is the canonical form (middleware 301s legacy /sites/ requests there).
+# Crawl the canonicals, not the legacy prefix — but keep image assets reachable.
+Allow: /sites/*/assets/
+Disallow: /sites/
 # The Swagger UI is a public docs surface — keep it crawlable (longest-match
 # Allow wins over the /api/ Disallow for crawlers that honor Allow).
+Disallow: /api/
 Allow: /api/v1/docs/
 Disallow: /auth/
 # Search result pages render client-side from ?q= — crawl the canon, not

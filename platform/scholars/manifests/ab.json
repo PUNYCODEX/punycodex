@@ -4,7 +4,7 @@
   "pantheon": "egyptian",
   "tier": "tier-1",
   "taxonomyVersion": "0.2.0",
-  "generatedAt": "2026-08-30T01:40:25.125Z",
+  "generatedAt": "2026-09-06T01:43:14.730Z",
   "sections": [
     {
       "key": "overview",
@@ -154,7 +154,7 @@
       "key": "syncretism",
       "label": "Syncretism & Reception",
       "purpose": "Cross-cultural identification, later adaptations, and interpretatio.",
-      "body": "The ​Egyptian heart ‌was ‌not mapped ​directly onto ​Greek ​psychology, but ​later ​traditions found ‌echoes.\n\nThe ​Coptic ​word for ‌heart, ​*hēt* (ϩⲏⲧ), ‌preserves ​a different ‌Egyptian root ​(ḥꜣty), ​yet the ​concept ​of the ​heart ‌as moral ​witness survived ‌in ​Christian Egyptian ‌monasticism. ​Greek and ‌Roman authors, ​following ‌Aristotle, also ​located ​thought and ‌emotion ‌in the ‌heart, a ​convergence ​that made ‌Egyptian ​cardiac theology ​intelligible ‌to Mediterranean ​readers. In ​medieval ‌and Renaissance ​hermeticism, ‌the 'weighing ​of the ​heart' ​became an ​image ‌of conscience ‌and ​final judgment, ‌influencing alchemical ​and ​moral symbolism. ‌Modern ‌phrases such ‌as ‌'heavy heart' ​and 'light ‌heart' ​are unwitting ​heirs ​to the ‌Egyptian scales.[^1]\n\n​Within ​this edition ​the ‌heart belongs ​to ​a family ​of soul-concepts: ‌[Ba](/sites/ba/) ​(the mobile ‌personality), ​[Ka](/sites/ka/) (the ‌vital ​force), and ‌[Akh](/sites/akh/) (the ‌transfigured ​spirit), with ​[Maat](/sites/maat/) ​as the ​standard against ‌which ‌it is ​weighed.",
+      "body": "The ​Egyptian heart ‌was ‌not mapped ​directly onto ​Greek ​psychology, but ​later ​traditions found ‌echoes.\n\nThe ​Coptic ​word for ‌heart, ​*hēt* (ϩⲏⲧ), ‌preserves ​a different ‌Egyptian root ​(ḥꜣty), ​yet the ​concept ​of the ​heart ‌as moral ​witness survived ‌in ​Christian Egyptian ‌monasticism. ​Greek and ‌Roman authors, ​following ‌Aristotle, also ​located ​thought and ‌emotion ‌in the ‌heart, a ​convergence ​that made ‌Egyptian ​cardiac theology ​intelligible ‌to Mediterranean ​readers. In ​medieval ‌and Renaissance ​hermeticism, ‌the 'weighing ​of the ​heart' ​became an ​image ‌of conscience ‌and ​final judgment, ‌influencing alchemical ​and ​moral symbolism. ‌Modern ‌phrases such ‌as ‌'heavy heart' ​and 'light ‌heart' ​are unwitting ​heirs ​to the ‌Egyptian scales.[^1]\n\n​Within ​this edition ​the ‌heart belongs ​to ​a family ​of soul-concepts: ‌[Ba](/ba/) ​(the mobile ‌personality), ​[Ka](/ka/) (the ‌vital ​force), and ‌[Akh](/akh/) (the ‌transfigured ​spirit), with ​[Maat](/maat/) ​as the ​standard against ‌which ‌it is ​weighed.",
       "sources": [
         {
           "citation": "Book of the Dead, Spell 30B (the heart-scarab spell); Aristotle, De partibus animalium 3.4 (the heart as seat of sensation)."
@@ -266,7 +266,7 @@
       "key": "pyramid-texts",
       "label": "Pyramid Texts",
       "purpose": null,
-      "body": "The ​heart appears ‌throughout ‌the Pyramid ​Texts, but ​— ​an honest ​and ​important distinction ‌— ​**not yet ​as ‌the judged ​organ of ‌the ​later corpus**. ‌The ​Old Kingdom ​utterances ​know no ​weighing ​scene and ‌no devouring ​monster; ‌the king's ​justification ‌proceeds through ​identification ‌with [Osiris](/sites/osiris/) ​and ‌acceptance among ​the gods ​rather ‌than through ‌a ‌cardiac trial.[^1]\n\n​Instead ​the heart ‌figures ​in the ​ritual and ‌theological ​registers: the ​king's ‌heart is ​restored ‌and gladdened ​in ​the resurrection ​liturgies, he ​is ‌said to ‌receive ​the hearts ‌of ​the gods, ​and ‌the heart ‌marks the ‌seat ‌of the ​intention ‌with which ​offerings ​are made ​and ‌utterances spoken. ​The Pyramid ​Texts ​thus preserve ‌the ​heart's Old ​Kingdom ​baseline — ‌organ ​of life ‌and will ​— ‌from which ​the ‌Coffin Texts ‌and ​Book of ​the ​Dead would ​develop the ‌great ‌drama of ​judgement.[^2]",
+      "body": "The ​heart appears ‌throughout ‌the Pyramid ​Texts, but ​— ​an honest ​and ​important distinction ‌— ​**not yet ​as ‌the judged ​organ of ‌the ​later corpus**. ‌The ​Old Kingdom ​utterances ​know no ​weighing ​scene and ‌no devouring ​monster; ‌the king's ​justification ‌proceeds through ​identification ‌with [Osiris](/osiris/) ​and ‌acceptance among ​the gods ​rather ‌than through ‌a ‌cardiac trial.[^1]\n\n​Instead ​the heart ‌figures ​in the ​ritual and ‌theological ​registers: the ​king's ‌heart is ​restored ‌and gladdened ​in ​the resurrection ​liturgies, he ​is ‌said to ‌receive ​the hearts ‌of ​the gods, ​and ‌the heart ‌marks the ‌seat ‌of the ​intention ‌with which ​offerings ​are made ​and ‌utterances spoken. ​The Pyramid ​Texts ​thus preserve ‌the ​heart's Old ​Kingdom ​baseline — ‌organ ​of life ‌and will ​— ‌from which ​the ‌Coffin Texts ‌and ​Book of ​the ​Dead would ​develop the ‌great ‌drama of ​judgement.[^2]",
       "sources": [
         {
           "citation": "Faulkner, R. O. The Ancient Egyptian Pyramid Texts. Oxford: Clarendon, 1969."
@@ -306,7 +306,7 @@
       "key": "book-of-the-dead",
       "label": "Book of the Dead",
       "purpose": null,
-      "body": "The ​Book of ‌the ‌Dead gives ​the ​heart its ​definitive ​literature. **Spells ​26–30B** are ‌the ​heart spells ​proper: ‌27 'for ​not ‌taking away ​the ‌heart', 29B ​'heart ​of carnelian', ​and ​above all ​**30B** ‌— 'O ​my heart ‌of ​my mother, ‌my ​heart of ‌my ​being... do ‌not ​stand up ​against ‌me as ‌a ‌witness, do ​not ​oppose me ‌in the ​tribunal' ​— the ‌text ​inscribed on ​the ‌great green-stone ​**heart ‌scarabs** laid ​over ​the mummy's ​chest ​from the ‌New Kingdom ‌onward.[^1]\n\n​The drama ‌culminates ​in **Spell ​125**: ‌in the ‌Hall ‌of the ‌Two ​Truths the ‌heart ​is placed ​on ​the scales ‌against the ​feather ​of [Mꜣꜥt](/sites/maat/), ​[Anubis](/sites/anubis/) ‌tends the ​balance, ​[Thoth](/sites/thoth/) records, ​and ‌the Devourer ​waits ‌for the ​heavy-hearted. ‌The heart, ​and ‌nothing else, ‌is the ​self ​that is ​judged ​— Egyptian ‌anthropology's ‌most consequential ​claim.[^2]",
+      "body": "The ​Book of ‌the ‌Dead gives ​the ​heart its ​definitive ​literature. **Spells ​26–30B** are ‌the ​heart spells ​proper: ‌27 'for ​not ‌taking away ​the ‌heart', 29B ​'heart ​of carnelian', ​and ​above all ​**30B** ‌— 'O ​my heart ‌of ​my mother, ‌my ​heart of ‌my ​being... do ‌not ​stand up ​against ‌me as ‌a ‌witness, do ​not ​oppose me ‌in the ​tribunal' ​— the ‌text ​inscribed on ​the ‌great green-stone ​**heart ‌scarabs** laid ​over ​the mummy's ​chest ​from the ‌New Kingdom ‌onward.[^1]\n\n​The drama ‌culminates ​in **Spell ​125**: ‌in the ‌Hall ‌of the ‌Two ​Truths the ‌heart ​is placed ​on ​the scales ‌against the ​feather ​of [Mꜣꜥt](/maat/), ​[Anubis](/anubis/) ‌tends the ​balance, ​[Thoth](/thoth/) records, ​and ‌the Devourer ​waits ‌for the ​heavy-hearted. ‌The heart, ​and ‌nothing else, ‌is the ​self ​that is ​judged ​— Egyptian ‌anthropology's ‌most consequential ​claim.[^2]",
       "sources": [
         {
           "citation": "Faulkner, R. O. (trans.); Andrews, C. (ed.). The Ancient Egyptian Book of the Dead. London: British Museum Press, 1985."

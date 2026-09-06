@@ -159,7 +159,7 @@
                 <li><strong>Punycode encoding.</strong> The normalized Unicode label is passed through the Bootstring algorithm described in RFC 3492, producing an ASCII string beginning with <code>xn--</code>.</li>
                 <li><strong>Validation.</strong> The resulting ACE label must pass DNS length limits and IDNA2008 contextual rules. Combining marks, for example, must be applied to valid base characters in the correct order.</li>
             </ul>
-            <p>For <a href="/sites/zeus/">Zeus</a>, the fully restored display form is <code>zeús.com</code>, but the ACE form that actually travels through the resolver chain is <code>xn--zes-9na.com</code>. Both are correct; neither is a corruption of the other. They are simply two views of the same identifier.</p>
+            <p>For <a href="/zeus/">Zeus</a>, the fully restored display form is <code>zeús.com</code>, but the ACE form that actually travels through the resolver chain is <code>xn--zes-9na.com</code>. Both are correct; neither is a corruption of the other. They are simply two views of the same identifier.</p>
 
             <h2>Why Browsers Hide the Truth</h2>
             <p>Modern browsers are deliberately bilingual. They show the Unicode form in the address bar when they judge it safe to do so, and they fall back to the <code>xn--</code> form when the label might be used for spoofing. The decision depends on mixed-script checks, top-level domain policy, and user locale.</p>
@@ -168,10 +168,10 @@
             <h2>The Cultural Cost of Invisibility</h2>
             <p>There is a deeper cost to the <code>xn--</code> prefix than mere ugliness. When the DNS only speaks ASCII, the public record of a culture's name is stored in a script that culture never used. A Greek god's name, encoded for the router, is no longer Greek. It is a string of Latin letters, digits, and hyphens prefixed with an artificial marker.</p>
             <p>PuniCodex treats this invisibility as a design problem to solve, not a fact to accept. The search engine indexes both forms; the temple pages display both forms; the lexicon stores the scholarly restoration as the canonical source. The ACE form is a transport detail. The display form is the name.</p>
-            <p>If you want to see the mapping for yourself, visit the <a href="/sites/zeus/">temple of Zeus</a> or explore the <a href="/authenticity/">authenticity framework</a> that keeps the display form honest.</p>
+            <p>If you want to see the mapping for yourself, visit the <a href="/zeus/">temple of Zeus</a> or explore the <a href="/authenticity/">authenticity framework</a> that keeps the display form honest.</p>
 
             <aside class="codex-article-cta">
-                <a href="/sites/zeus/" class="btn btn-primary"><span>Visit Zeus</span></a>
+                <a href="/zeus/" class="btn btn-primary"><span>Visit Zeus</span></a>
                 <a href="/authenticity/" class="btn btn-outline"><span>Authenticity Model</span></a>
             </aside>
         </article>

@@ -383,7 +383,8 @@ ${groupsHtml}
 }
 
 function detailPageHtml(production, allProductions) {
-  const title = `${production.title} — Screen Guide — PuniCodex`;
+  const yearLabel = production.year ? ` (${production.year})` : '';
+  const title = `${production.title}${yearLabel} — Screen Guide — PuniCodex`;
   const description = `${production.summary} (${production.year || 'Unknown'}, ${typeLabel(production.type)}).`;
   const canonical = productionUrl(production);
 

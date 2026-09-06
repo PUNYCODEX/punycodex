@@ -61,6 +61,10 @@ const allScripts = [
   'scripts/sync-public-copy.js',
   'scripts/generate-temples.js',
   'scripts/create-flagship.js --regenerate-all',
+  // Fix legacy redirect stubs so their canonical / refresh / anchor targets point
+  // at the clean /{id}/ form instead of /sites/{id}/. Must run immediately after
+  // flagship regeneration because create-flagship.js writes those stubs.
+  'scripts/fix-legacy-redirect-canonicals.js',
   // Bakes 1200×630 OG share cards for every entry into assets/og/; templates
   // reference them by convention (/assets/og/{id}.jpg).
   'scripts/generate-og-images.js',
@@ -83,6 +87,10 @@ const allScripts = [
   'scripts/backfill-series-restoration.js',
   'scripts/generate-blog-series-resonance.js',
   'scripts/generate-blog-series-canonical.js',
+  // Canonical JSON sources must link to the clean /{id}/ form. Run this sweep
+  // after all blog + scholars content JSON generators and before the HTML page
+  // generators that consume them.
+  'scripts/fix-canonical-source-links.js',
   'scripts/generate-blog-pages.js',
   'scripts/generate-blog-series-pages.js',
   'scripts/generate-blog-index.js',

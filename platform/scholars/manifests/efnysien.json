@@ -4,7 +4,7 @@
   "pantheon": "celtic",
   "tier": "tier-2",
   "taxonomyVersion": "0.2.0",
-  "generatedAt": "2026-08-30T01:40:25.570Z",
+  "generatedAt": "2026-09-06T01:43:15.024Z",
   "sections": [
     {
       "key": "overview",
@@ -19,7 +19,7 @@
           "citation": "Mac Cana, Proinsias, The Mabinogi, 2nd ed. (Cardiff: University of Wales Press, 1992); Mac Cana, Proinsias, Branwen Daughter of Llŷr (Cardiff: University of Wales Press, 1958)."
         },
         {
-          "citation": "PuniCodex domain register for this entry: efnysien.com held outside the collection, watched for release; temple served at /sites/efnysien/."
+          "citation": "PuniCodex domain register for this entry: efnysien.com held outside the collection, watched for release; temple served at /efnysien/."
         }
       ],
       "media": [],
@@ -33,7 +33,7 @@
       "key": "the-name",
       "label": "The Name",
       "purpose": "Etymology, ASCII constraint, Unicode restoration, name variations, tier classification.",
-      "body": "The name ​is attested in ‌Middle Welsh as ‌**Efnisien** (the modern ​standard spelling; the ​temple's form **Efnysien** ​follows the same ​name with the ​common y-spelling), son ‌of Euroswydd and ​Penarddun ferch Beli, ​in the ‌Second Branch of ​the Mabinogi.[^1] Its ‌etymology is debated ​rather than settled, ‌and honest scholarship ​labels it accordingly. ​What is secure ​is the literary ​construction: the branch ​pairs Efnisien with ‌his brother [[nisien|Nisien]] ​as a named ‌opposition — the ​peace-maker and the ‌strife-maker — and ​the handbooks read ‌the pair as ​an embodiment of ‌contraries, with Efnisien's ​name traditionally glossed ​on the 'enemy, ‌hostile' side ‌of the contrast. ‌The lexicon's gloss ​'Double enemy' follows ​MacKillop's rendering of ‌the name.[^2]\n\nThe ​ASCII form is ​not a compromise ‌here: Middle Welsh ​writes the name ​in plain Latin ‌letters, and normalized ​Welsh orthography attaches ‌no diacritic to ​it. There is ​nothing distinctive for ​the ASCII alphabet ​to lose; only ‌the capital distinguishes ‌the restored form ​from the input, ‌which places the ​name in ​Tier 2 by ‌the mechanical rule.\n\n‌The letter-by-letter transformation ‌runs:\n\n- **e** ‌→ **E** — ​Same, capitalized\n- ‌**f** → **f** ​— Same\n- ​**n** → **n** ​— Same\n- ‌**y** → **y** ​— Same\n- ​**s** → **s** ​— Same\n- ‌**i** → **i** ​— Same\n- ​**e** → **e** ​— Same\n- ‌**n** → **n** ​— Same\n\nThe ‌project holds no ​domain for ‌this name: **efnysien.com** ​is registered to ‌a third party ‌outside the PuniCodex ​collection and is ​watched for release. ​The temple is ​served at /sites/efnysien/ ‌and claims no ‌domain it does ​not hold.",
+      "body": "The name ​is attested in ‌Middle Welsh as ‌**Efnisien** (the modern ​standard spelling; the ​temple's form **Efnysien** ​follows the same ​name with the ​common y-spelling), son ‌of Euroswydd and ​Penarddun ferch Beli, ​in the ‌Second Branch of ​the Mabinogi.[^1] Its ‌etymology is debated ​rather than settled, ‌and honest scholarship ​labels it accordingly. ​What is secure ​is the literary ​construction: the branch ​pairs Efnisien with ‌his brother [[nisien|Nisien]] ​as a named ‌opposition — the ​peace-maker and the ‌strife-maker — and ​the handbooks read ‌the pair as ​an embodiment of ‌contraries, with Efnisien's ​name traditionally glossed ​on the 'enemy, ‌hostile' side ‌of the contrast. ‌The lexicon's gloss ​'Double enemy' follows ​MacKillop's rendering of ‌the name.[^2]\n\nThe ​ASCII form is ​not a compromise ‌here: Middle Welsh ​writes the name ​in plain Latin ‌letters, and normalized ​Welsh orthography attaches ‌no diacritic to ​it. There is ​nothing distinctive for ​the ASCII alphabet ​to lose; only ‌the capital distinguishes ‌the restored form ​from the input, ‌which places the ​name in ​Tier 2 by ‌the mechanical rule.\n\n‌The letter-by-letter transformation ‌runs:\n\n- **e** ‌→ **E** — ​Same, capitalized\n- ‌**f** → **f** ​— Same\n- ​**n** → **n** ​— Same\n- ‌**y** → **y** ​— Same\n- ​**s** → **s** ​— Same\n- ‌**i** → **i** ​— Same\n- ​**e** → **e** ​— Same\n- ‌**n** → **n** ​— Same\n\nThe ‌project holds no ​domain for ‌this name: **efnysien.com** ​is registered to ‌a third party ‌outside the PuniCodex ​collection and is ​watched for release. ​The temple is ​served at /efnysien/ ‌and claims no ‌domain it does ​not hold.",
       "sources": [
         {
           "citation": "Williams, Ifor, ed., Pedeir Keinc y Mabinogi (Cardiff: University of Wales Press, 1930); Geiriadur Prifysgol Cymru / A Dictionary of the Welsh Language (Cardiff: University of Wales Press), s.v. Efnisien."
