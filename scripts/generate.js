@@ -57,6 +57,7 @@ const allScripts = [
   'scripts/generate-cards.js',
   'scripts/generate-cards-page.js',
   'scripts/sync-middleware-domains.js',
+  'scripts/generate-owned-domains-md.js',
   'scripts/sync-public-copy.js',
   'scripts/generate-temples.js',
   'scripts/create-flagship.js --regenerate-all',
